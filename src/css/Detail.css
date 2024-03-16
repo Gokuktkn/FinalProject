@@ -1,0 +1,122 @@
+.info-container {
+    background-position: center;
+    background-size: cover;
+}
+
+.info {
+    display: flex;
+    padding: 20px 30px;
+}
+
+.movie-img {
+    border-radius: 10px;
+}
+
+.desc {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    color: #fff;
+    padding: 0 40px;
+}
+
+.function {
+    display: flex;
+    gap: 20px;
+}
+
+.btn-list {
+    padding: 10px 12px;
+    border-radius: 20px;
+    color: #fff;
+    background-color: #021E34;
+}
+
+.btn-trailer{
+    background: none;
+    border: none;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 8px
+}
+
+.name-info {
+    font-size: 35px;
+    font-weight: bold;
+}
+
+.overview {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.content-overview,
+.producer {
+    font-size: 16px;
+}
+
+.producer {
+    display: flex;
+
+}
+
+.producer-info {
+    flex: 1;
+}
+
+.name-producer {
+    font-weight: bold;
+}
+
+.role {
+    font-size: 14px;
+}
+
+.title-billed-cast {
+    padding: 30px 0 20px;
+}
+
+.more {
+    display: flex;
+    gap: 30px;
+}
+
+.top-billed-cast {
+    display: flex;
+    gap: 10px;
+    overflow-x: scroll;
+    flex: 2;
+}
+
+.cast {
+    width: 138px;
+    border: 1px solid lightgray;
+    border-radius: 10px;
+}
+
+.img-cast {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    margin-bottom: 5px;
+}
+
+.info-cast {
+    padding: 5px;
+    font-size: 14px;
+}
+
+.name-cast {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.achievements {
+    flex: 1;
+    font-size: 16px;
+}
+
+.title-achievement {
+    font-weight: bold;
+}
