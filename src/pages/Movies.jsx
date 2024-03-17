@@ -21,6 +21,8 @@ const initialState = {
   userScoreRange: [0, 10],
   minUserVote: 0,
   movieLengthRange: [0, 400],
+  startDate: null,
+  endDate: null,
 };
 
 // Define your reducer function
@@ -46,16 +48,16 @@ const reducer = (state, action) => {
         ...state,
         selectedGenre: action.payload,
       };
-      case "SET_SORT_BY":
-        return {
-          ...state,
-          sortBy: action.payload,
-        };
-      
-        case "SET_USER_SCORE_RANGE":
+    case "SET_SORT_BY":
       return {
         ...state,
-        userScoreRange: action.payload, 
+        sortBy: action.payload,
+      };
+
+    case "SET_USER_SCORE_RANGE":
+      return {
+        ...state,
+        userScoreRange: action.payload,
       };
     case "SET_MIN_USER_VOTE":
       return {
@@ -67,6 +69,10 @@ const reducer = (state, action) => {
         ...state,
         movieLengthRange: action.payload,
       };
+    case "SET_START_DATE":
+      return { ...state, startDate: action.payload };
+    case "SET_END_DATE":
+      return { ...state, endDate: action.payload };
     default:
       return state;
   }
@@ -89,33 +95,40 @@ const Movies = () => {
       try {
         let endpoint = "discover/movie";
 
-      const queryParams = {
-        page: state.currentPage,
-      };
+        const queryParams = {
+          page: state.currentPage,
+        };
 
-      if (state.selectedGenre) {
-        queryParams.with_genres = state.selectedGenre;
-      }
-      if (state.sortBy !== null) {
-        queryParams.sort_by = state.sortBy;
-      }
+        if (state.selectedGenre) {
+          queryParams.with_genres = state.selectedGenre;
+        }
+        if (state.sortBy !== null) {
+          queryParams.sort_by = state.sortBy;
+        }
 
-      if (state.userScoreRange !== undefined) {
-      queryParams["vote_average.gte"] = state.userScoreRange[0];
-      queryParams["vote_average.lte"] = state.userScoreRange[1];
-      }
+        if (state.userScoreRange !== undefined) {
+          queryParams["vote_average.gte"] = state.userScoreRange[0];
+          queryParams["vote_average.lte"] = state.userScoreRange[1];
+        }
 
-      if (state.minUserVote !== undefined) {
-        queryParams["vote_count.gte"] = state.minUserVote;
-      }
+        if (state.minUserVote !== undefined) {
+          queryParams["vote_count.gte"] = state.minUserVote;
+        }
 
-      if (state.movieLengthRange !== undefined) {
-        queryParams["with_runtime.gte"] = state.movieLengthRange[0];
-        queryParams["with_runtime.lte"] = state.movieLengthRange[1];
-      }
+        if (state.movieLengthRange !== undefined) {
+          queryParams["with_runtime.gte"] = state.movieLengthRange[0];
+          queryParams["with_runtime.lte"] = state.movieLengthRange[1];
+        }
+
+        if (state.startDate !== null) {
+          queryParams["primary_release_date.gte"] = state.startDate.toISOString().split('T')[0];
+        }
+        if (state.endDate !== null) {
+          queryParams["primary_release_date.lte"] = state.endDate.toISOString().split('T')[0];
+        }
 
 
-      console.log("Endpoint:", endpoint); 
+        console.log("Endpoint:", endpoint);
 
         const response = await apiInstance.get(endpoint, {
           params: queryParams,
@@ -132,7 +145,16 @@ const Movies = () => {
     };
 
     fetchMovies();
-  }, [state.currentPage, state.selectedGenre, state.sortBy, state.userScoreRange, state.minUserVote, state.movieLengthRange]);
+  }, [
+    state.currentPage,
+    state.selectedGenre,
+    state.sortBy,
+    state.userScoreRange,
+    state.minUserVote,
+    state.movieLengthRange,
+    state.endDate,
+    state.startDate
+  ]);
 
   const handlePageChange = (page) => {
     dispatch({ type: "SET_CURRENT_PAGE", payload: page });
@@ -149,27 +171,47 @@ const Movies = () => {
   };
 
   const onUserScoreChange = (value) => {
-    dispatch({ type: "SET_USER_SCORE_RANGE", payload: value }); 
+    dispatch({ type: "SET_USER_SCORE_RANGE", payload: value });
   };
-  
+
   const onUserVoteChange = (value) => {
-    dispatch({ type: "SET_MIN_USER_VOTE", payload: value }); 
+    dispatch({ type: "SET_MIN_USER_VOTE", payload: value });
   };
 
   const onMovieLengthChange = (value) => {
-    dispatch({ type: "SET_MOVIE_LENGTH_RANGE", payload: value }); 
+    dispatch({ type: "SET_MOVIE_LENGTH_RANGE", payload: value });
   };
+
+  const handleStartDateChange = (startDate) => {
+    dispatch({ type: "SET_START_DATE", payload: startDate });
+  };
+
+  const handleEndDateChange = (endDate) => {
+    dispatch({ type: "SET_END_DATE", payload: endDate });
+  };
+
+
   return (
     <>
       <Header />
       <div className="container movies-heading">
         <h1>Movies</h1>
-        <SortGenre handleGenreSelect={handleGenreSelect} handleSortChange={handleSortChange} />
+        <SortGenre
+          handleGenreSelect={handleGenreSelect}
+          handleSortChange={handleSortChange}
+        />
       </div>
 
       <div className="container movies-container">
         <div className="movies-sidebar col-md-2">
-          <MovieSidebar onUserScoreChange={onUserScoreChange} onUserVoteChange={onUserVoteChange} onMovieLengthChange={onMovieLengthChange}/>
+          <MovieSidebar
+            onUserScoreChange={onUserScoreChange}
+            onUserVoteChange={onUserVoteChange}
+            onMovieLengthChange={onMovieLengthChange}
+            onStartDateChange={handleStartDateChange}
+            onEndDateChange={handleEndDateChange}
+
+          />
           <Button variant="primary">Search</Button>
         </div>
 
