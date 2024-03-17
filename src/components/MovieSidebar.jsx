@@ -85,8 +85,7 @@ const MovieSidebar = ({
             selected={endDate}
             onChange={(date) => handleEndDateChange(date)}
           />
-
-          <p>Search keywords</p>
+          
         </Accordion.Body>
       </Accordion.Item>
     </Accordion>

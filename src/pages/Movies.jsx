@@ -212,7 +212,6 @@ const Movies = () => {
             onEndDateChange={handleEndDateChange}
 
           />
-          <Button variant="primary">Search</Button>
         </div>
 
         <div className="movies-list-pagination col-md-10">
