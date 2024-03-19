@@ -1,37 +1,37 @@
 import React from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/esm/Button";
-import { useState, useContext} from "react";
+import { useState, useContext } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../App";
 
 const Login = () => {
   const navigate = useNavigate();
+
   const { setIsAuthenticated } = useContext(AuthContext);
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  
 
   const handleLogin = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await axios.post("https://dummyjson.com/auth/login", {
-        username: username,
-        password: password,
+      const response = await axios.post ("https://dummyjson.com/auth/login", {
+        username: 'atuny0',
+        password: '9uQFF1Lh',
       });
-
-      if (response.data.success) {
+      console.log(response);
+      if (response.data) {
         console.log("Login successful");
+        const sessionId = response.data.token;
+        localStorage.setItem("sessionId", sessionId);
         setIsAuthenticated(true);
         if (location.state && location.state.from) {
-          // If there's a previous location, navigate back to it
           navigate(location.state.from);
         } else {
-          // Otherwise, navigate to the home page
           navigate("/");
         }
       } else {
@@ -72,7 +72,7 @@ const Login = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
           </Form.Group>
-          {error && <p className="text-danger">{error}</p>} {/* Display error message if present */}
+          {error && <p className="text-danger">{error}</p>}
           <Button type="submit">Log in</Button>
           <p>
             Don't have an account yet? <a href="">Register</a>

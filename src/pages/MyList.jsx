@@ -2,8 +2,12 @@ import React from "react";
 import Header from "../components/Header";
 import CarouselSlider from "../components/CarouselSlider";
 import { Footer } from "../components/Footer";
+import axios from "axios";
+import { useState, useEffect} from "react";
 
 const MyList = () => {
+  const [watchlist, setWatchlist] = useState([]);
+
   return (
     <>
       <Header />
