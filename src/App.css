@@ -145,3 +145,32 @@
   object-fit: cover;
   height: 280px;
 }
+
+.mylist-watchlist {
+  display: flex; 
+  overflow-x: auto; 
+  padding: 10px; 
+  gap: 10px; 
+}
+
+.mylist-favlist {
+  display: flex; 
+  overflow-x: auto; 
+  padding: 10px; 
+  gap: 10px; 
+}
+
+.mylist-watchlist .movie-card-image {
+  width: 200px;
+}
+
+.mylist-favlist .movie-card-image {
+  width: 200px;
+}
+
+.header-right img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: white;
+}

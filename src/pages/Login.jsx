@@ -20,14 +20,14 @@ const Login = () => {
 
     try {
       const response = await axios.post ("https://dummyjson.com/auth/login", {
-        username: 'atuny0',
-        password: '9uQFF1Lh',
+        username: username,
+        password: password,
       });
       console.log(response);
       if (response.data) {
         console.log("Login successful");
-        const sessionId = response.data.token;
-        localStorage.setItem("sessionId", sessionId);
+        const data = JSON.stringify(response.data);
+        localStorage.setItem("data", data);
         setIsAuthenticated(true);
         if (location.state && location.state.from) {
           navigate(location.state.from);
