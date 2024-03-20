@@ -9,8 +9,6 @@ import { AuthContext } from "../App";
 const Login = () => {
   const navigate = useNavigate();
 
-  const { setIsAuthenticated } = useContext(AuthContext);
-
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -28,7 +26,6 @@ const Login = () => {
         console.log("Login successful");
         const data = JSON.stringify(response.data);
         localStorage.setItem("data", data);
-        setIsAuthenticated(true);
         if (location.state && location.state.from) {
           navigate(location.state.from);
         } else {
