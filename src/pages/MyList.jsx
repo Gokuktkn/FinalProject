@@ -5,15 +5,17 @@ import axios from "axios";
 import { useState, useEffect, createContext } from "react";
 import MovieCard from "../components/MovieCard";
 import "react-toastify/dist/ReactToastify.css";
+import { BeatLoader } from "react-spinners";
 
 export const MyListToastContext = createContext();
 const MyList = () => {
   const [watchlist, setWatchlist] = useState([]);
   const [favList, setFavList] = useState([]);
-
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     const fetchWatchlist = async () => {
       try {
+        setLoading(true);
         const response = await fetch(
           "https://api.themoviedb.org/3/account/21038321/watchlist/movies?language=en-US&page=1&sort_by=created_at.asc",
           {
@@ -33,11 +35,13 @@ const MyList = () => {
         }
       } catch (error) {
         console.error("Error fetching watchlist:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchWatchlist();
-  }, []); 
+  }, []);
 
   useEffect(() => {
     const fetchFavList = async () => {
@@ -65,40 +69,46 @@ const MyList = () => {
     };
 
     fetchFavList();
-  }, []); 
+  }, []);
 
   return (
-    <>
+    <div className="mylist-body">
       <Header />
-      <div className="container">
-        <h1 className="movies-heading ">My Lists</h1>
-        <h2>Watchlist</h2>
-        <div className="mylist-watchlist">
-          {watchlist.map((movie) => (
-            <MovieCard
-              key={movie.id}
-              id={movie.id}
-              title={movie.title}
-              overview={movie.overview}
-              img={movie.poster_path}
-            ></MovieCard>
-          ))}
+      {loading ? (
+        <div className="loading-spinner">
+        <BeatLoader color="#36d7b7" size={30}/>
         </div>
-        <h2>Favorite List</h2>
-        <div className="mylist-favlist">
-          {favList.map((movie) => (
-            <MovieCard
-              key={movie.id}
-              id={movie.id}
-              title={movie.title}
-              overview={movie.overview}
-              img={movie.poster_path}
-            ></MovieCard>
-          ))}
+      ) : (
+        <div className="container">
+          <h1 className="movies-heading ">My Lists</h1>
+          <h2>Watchlist</h2>
+          <div className="mylist-watchlist">
+            {watchlist.map((movie) => (
+              <MovieCard
+                key={movie.id}
+                id={movie.id}
+                title={movie.title}
+                overview={movie.overview}
+                img={movie.poster_path}
+              ></MovieCard>
+            ))}
+          </div>
+          <h2>Favorite List</h2>
+          <div className="mylist-favlist">
+            {favList.map((movie) => (
+              <MovieCard
+                key={movie.id}
+                id={movie.id}
+                title={movie.title}
+                overview={movie.overview}
+                img={movie.poster_path}
+              ></MovieCard>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
       <Footer />
-    </>
+    </div>
   );
 };
 

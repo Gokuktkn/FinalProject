@@ -205,3 +205,10 @@
   background-color: white;
 }
 
+.mylist-body .loading-spinner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+}

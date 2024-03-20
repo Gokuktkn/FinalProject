@@ -14,6 +14,7 @@ const MovieCard = ({ title, overview, img, id }) => {
 
   const login = localStorage.getItem("data");
   const imageURL = `https://image.tmdb.org/t/p/w500/${img}`;
+  const imageURLDefault = `https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png`;
 
   const handleClickImage = () => {
     if (!login) {
@@ -41,15 +42,16 @@ const MovieCard = ({ title, overview, img, id }) => {
       if (response) {
         console.log(response);
         toast.success("Added to 🍿 WATCHLIST");
-        setIsInWatchlist(true);
       } else {
         console.error("Failed to add movie to watchlist");
+        toast.error("Error adding to ❤️ FAVORITE");
       }
     } catch (error) {
       console.error(
         "An error occurred while adding movie to watchlist:",
         error
       );
+      toast.error("Error adding to 🍿 WATCHLIST");
     }
   };
 
@@ -73,9 +75,11 @@ const MovieCard = ({ title, overview, img, id }) => {
         toast.success("Added to ❤️ FAVORITE");
       } else {
         console.error("Failed to add movie to favorite");
+        toast.error("Error adding to ❤️ FAVORITE");
       }
     } catch (error) {
       console.error("An error occurred while adding movie to favorite:", error);
+      toast.error("Error adding to ❤️ FAVORITE");
     }
   };
 
@@ -84,13 +88,13 @@ const MovieCard = ({ title, overview, img, id }) => {
       <Card>
         <Card.Img
           variant="top"
-          src={imageURL}
+          src={img? imageURL : imageURLDefault}
           className="movie-card-image"
           onClick={handleClickImage}
         />
         <Card.Body>
-          <Card.Title className="movie-card-title">{title}</Card.Title>
-          <Card.Text className="overview">{overview}</Card.Text>
+          <Card.Title className="movie-card-title">{title? title : <em>No title available</em>}</Card.Title>
+          <Card.Text className="overview">{overview? overview : <em>No introduction available</em>}</Card.Text>
 
           {login ? (
             <Tooltip title="Add to Watchlist">

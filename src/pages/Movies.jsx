@@ -8,6 +8,8 @@ import { useState, useEffect, useReducer } from "react";
 import MovieSidebar from "../components/MovieSidebar";
 import SortGenre from "../components/SortGenre";
 import "react-toastify/dist/ReactToastify.css";
+import { BeatLoader } from "react-spinners";
+
 
 const initialState = {
   movies: [],
@@ -85,9 +87,10 @@ const apiInstance = axios.create({
 
 const Movies = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     const fetchMovies = async () => {
+      setLoading(true);
       try {
         let endpoint = "discover/movie";
 
@@ -140,7 +143,9 @@ const Movies = () => {
         });
       } catch (error) {
         console.error("Error fetching data: ", error);
-      }
+      } finally {
+      setLoading(false); 
+    }
     };
 
     fetchMovies();
@@ -200,6 +205,11 @@ const Movies = () => {
         />
       </div>
 
+      {loading? (
+      <div className="loading-spinner" >
+        <BeatLoader color="#36d7b7" size={50}/>
+      </div>
+    ) : (
       <div className="container movies-container">
         <div className="movies-sidebar col-md-2">
           <MovieSidebar
@@ -232,7 +242,7 @@ const Movies = () => {
             />
           </div>
         </div>
-      </div>
+      </div>)}
       <Footer />
     </>
   );
