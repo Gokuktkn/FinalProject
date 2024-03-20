@@ -9,11 +9,13 @@ const Header = () => {
   const login = localStorage.getItem("data");
   const loginData = JSON.parse(login);
   const imgageSrc = login ? loginData.image : null;
-//   console.log(imgageSrc);
+
   const navigate = useNavigate();
   const turnToLoginPage = () => {
     navigate("/login");
   };
+
+  // user menu pop up
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -24,12 +26,12 @@ const Header = () => {
   };
 
   const handleMyListClick = () => {
-    navigate("/mylist")
+    navigate("/mylist");
   };
 
   const handleLogoutClick = () => {
     localStorage.removeItem("data");
-    navigate("/")
+    navigate("/");
   };
 
   return (
@@ -72,8 +74,22 @@ const Header = () => {
                 "aria-labelledby": "basic-button",
               }}
             >
-              <MenuItem onClick={() => { handleClose(); handleMyListClick(); }}>My List</MenuItem>
-              <MenuItem onClick={() => { handleClose(); handleLogoutClick(); }}>Logout</MenuItem>
+              <MenuItem
+                onClick={() => {
+                  handleClose();
+                  handleMyListClick();
+                }}
+              >
+                My List
+              </MenuItem>
+              <MenuItem
+                onClick={() => {
+                  handleClose();
+                  handleLogoutClick();
+                }}
+              >
+                Logout
+              </MenuItem>
             </Menu>
           </div>
         ) : (

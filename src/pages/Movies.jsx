@@ -1,19 +1,13 @@
-import React, { createContext, useContext } from "react";
-import Dropdown from "react-bootstrap/Dropdown";
-import ListGroup from "react-bootstrap/ListGroup";
+import React from "react";
 import MovieCard from "../components/MovieCard";
 import PaginationCard from "../components/PaginationCard";
 import Header from "../components/Header";
 import { Footer } from "../components/Footer";
 import axios from "axios";
 import { useState, useEffect, useReducer } from "react";
-import Accordion from "react-bootstrap/Accordion";
-import Button from "react-bootstrap/Button";
 import MovieSidebar from "../components/MovieSidebar";
 import SortGenre from "../components/SortGenre";
-import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { ToastContext } from "../App";
 
 const initialState = {
   movies: [],
@@ -28,7 +22,6 @@ const initialState = {
   endDate: null,
 };
 
-// Define your reducer function
 const reducer = (state, action) => {
   switch (action.type) {
     case "SET_MOVIES":
@@ -90,66 +83,9 @@ const apiInstance = axios.create({
   },
 });
 
-// export const ToastContext = createContext();
 const Movies = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  // const [isMovieAdded, setIsMovieAdded] = useState(false);
-  // const [isFavMovieAdded, setIsFavMovieAdded] = useState(false);
-  const {
-    toastWatchlistAdded,
-    setToastWatchlistMovieAdded,
-    toastFavMovieAdded,
-    setToastFavMovieAdded,
-    toastWatchlistRemoved,
-    setToastWatchlistMovieRemoved,
-    toastFavMovieRemoved,
-    setToastFavMovieRemoved,
-  } = useContext(ToastContext);
-
-  useEffect(() => {
-    let toastTimer;
-    if (toastWatchlistAdded) {
-      toast.success("Successfully added to 🍿 WATCHLIST!");
-      toastTimer = setTimeout(() => {
-        setToastWatchlistMovieAdded(false);
-      }, 3000);
-    }
-    return () => clearTimeout(toastTimer); 
-  }, [toastWatchlistAdded]);
-
-  useEffect(() => {
-    let toastTimer;
-    if (toastWatchlistRemoved) {
-      toast.error("Deleted from 🍿 WATCHLIST!");
-      toastTimer = setTimeout(() => {
-        setToastWatchlistMovieRemoved(false);
-      }, 3000);
-    }
-    return () => clearTimeout(toastTimer); 
-  }, [toastWatchlistRemoved]);
-
-  useEffect(() => {
-    let toastTimer;
-    if (toastFavMovieRemoved) {
-      toast.error("Deleted movie from ❤️ FAVORITE LIST!");
-      toastTimer = setTimeout(() => {
-        setToastFavMovieRemoved(false);
-      }, 3000);
-    }
-    return () => clearTimeout(toastTimer); 
-  }, [toastFavMovieRemoved]);
-
-  useEffect(() => {
-    let toastTimer;
-    if (toastFavMovieAdded) {
-      toast.success("Successfully added to ❤️ FAVORITE LIST!");
-      toastTimer = setTimeout(() => {
-        setToastFavMovieAdded(false);
-      }, 3000);
-    }
-    return () => clearTimeout(toastTimer); 
-  }, [toastFavMovieAdded]);
-
+  
   useEffect(() => {
     const fetchMovies = async () => {
       try {
@@ -255,7 +191,6 @@ const Movies = () => {
 
   return (
     <>
-      <ToastContainer />
       <Header />
       <div className="container movies-heading">
         <h1>Movies</h1>
