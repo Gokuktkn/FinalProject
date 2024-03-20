@@ -11,6 +11,8 @@ import { Footer } from '../components/Footer';
 
 export const Detail = () => {
   const params = useParams().id;
+  const paramsTest = useParams();
+  console.log(paramsTest)
 
   const DETAIL_URL = `https://api.themoviedb.org/3/movie/${params}?language=en-US`;
   const CAST_URL = `https://api.themoviedb.org/3/movie/${params}/credits?language=en-US`;
