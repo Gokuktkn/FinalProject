@@ -10,11 +10,11 @@
     padding: 0 40px;
 }
 
-.container p{
+.container p {
     margin: 0;
 }
 
-.introduction{
+.introduction {
     margin-bottom: 30px;
 }
 
@@ -76,13 +76,7 @@
 
 .movie-list a {
     text-decoration: none;
-  }
-
-/* Hide scrollbar */
-.movie-list::-webkit-scrollbar {
-    display: none;
 }
-
 
 .img-movie {
     width: 150px;
@@ -91,7 +85,7 @@
     margin-bottom: 30px;
 }
 
-p{
+p {
     margin: 0;
 }
 
@@ -99,7 +93,7 @@ p{
     font-weight: bold;
 }
 
-.name-movie{
+.name-movie {
     color: #000;
 }
 
