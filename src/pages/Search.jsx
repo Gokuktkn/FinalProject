@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import "../css/Search.css";
+import axios from 'axios';
 import Header from '../components/Header';
 import { Footer } from '../components/Footer';
 import { IoSearch } from "react-icons/io5";
 import { Link, useSearchParams } from 'react-router-dom';
-import axios from 'axios';
 import SearchCard from '../components/SearchCard';
+import PaginationCard from '../components/PaginationCard';
 
 const Search = () => {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -29,7 +30,7 @@ const Search = () => {
         fetchData();
     }, [searchParams.get('key')])
     const handleSearch = () => {
-        setSearchParams({key: inputVal});
+        setSearchParams({ key: inputVal });
     }
     return (
         <div className='search-page'>
@@ -64,6 +65,13 @@ const Search = () => {
                                 })}
                             </div>
                         </div>
+                    </div>
+                    <div className="pagination">
+                        <PaginationCard
+                            currentPage={state.currentPage}
+                            totalPages={state.totalPages}
+                            onPageChange={handlePageChange}
+                        />
                     </div>
                 </div>
             </div>

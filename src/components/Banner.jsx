@@ -7,7 +7,6 @@ export const Banner = () => {
     const navigate = useNavigate();
     const handleSearch = (e) => {
         e.preventDefault();
-        console.log("alo")
         if (inputSearch.trim()) {
             navigate(`search?key=${inputSearch}`)
         }
