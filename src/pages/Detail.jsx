@@ -17,7 +17,6 @@ export const Detail = () => {
     DETAIL_URL: `https://api.themoviedb.org/3/${paramsType}/${params}?language=en-US`,
     CAST_URL: `https://api.themoviedb.org/3/${paramsType}/${params}/credits?language=en-US`,
     TRAILER_URL: `https://api.themoviedb.org/3/${paramsType}/${params}/videos?language=en-US`
-
   }
   const [listDetail, setListDetail] = useState({});
   const [listCast, setListCast] = useState([]);
@@ -65,7 +64,7 @@ export const Detail = () => {
                 {trailerActive && (
                   <div className="show-video">
                     <div className="exit">
-                      <button onClick={handleTrailer} className='btn-exit'><IoClose className='exit-icon'/></button>
+                      <button onClick={handleTrailer} className='btn-exit'><IoClose className='exit-icon' /></button>
                     </div>
                     <iframe
                       src={`https://www.youtube.com/embed/${trailerPosition.key}`}
@@ -82,20 +81,6 @@ export const Detail = () => {
             <div className='overview-detail'>
               <h3>Overview</h3>
               <p className='content-overview'>{listDetail.overview}</p>
-            </div>
-            <div className='producer'>
-              <div className='producer-info'>
-                <p className='name-producer'>Denis Villeneuve</p>
-                <p className='role'>Director, Screenplay</p>
-              </div>
-              <div className='producer-info'>
-                <p className='name-producer'>Frank Herbert</p>
-                <p className='role'>Novel</p>
-              </div>
-              <div className='producer-info'>
-                <p className='name-producer'>Jon Spaihts</p>
-                <p className='role'>Screenplay</p>
-              </div>
             </div>
           </div>
         </div>

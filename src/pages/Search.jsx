@@ -66,13 +66,13 @@ const Search = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="pagination">
+                    {/* <div className="pagination">
                         <PaginationCard
                             currentPage={state.currentPage}
                             totalPages={state.totalPages}
                             onPageChange={handlePageChange}
                         />
-                    </div>
+                    </div> */}
                 </div>
             </div>
             <Footer />
