@@ -108,9 +108,18 @@ p {
     color: #959493;
 }
 
+.latest-trailer {
+    background-position: center;
+    background-size: cover;
+}
+
 .trailer {
     font-size: 16px;
     text-align: center;
+}
+
+.title-trailer {
+    color: #fff;
 }
 
 .img-trailer {
@@ -122,10 +131,6 @@ p {
 }
 
 .play-icon {
-    /* position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%); */
     height: 50px;
     width: 50px;
     color: white;
