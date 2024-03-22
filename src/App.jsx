@@ -8,7 +8,6 @@ import Movies from "./pages/Movies";
 import MyList from "./pages/MyList";
 import NotFound from "./pages/NotFound";
 import { Home } from "./pages/Home";
-import { Footer } from "./components/Footer";
 import { Detail } from "./pages/Detail";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { LocalizationProvider } from "@mui/x-date-pickers";
@@ -18,6 +17,9 @@ import "react-toastify/dist/ReactToastify.css";
 
 export const AuthContext = createContext();
 export const ToastContext = createContext();
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Search from "./pages/Search";
+
 function App() {
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -30,7 +32,8 @@ function App() {
           <Route path="/movies" element={<Movies />} />
           <Route path="/tvshows" element={<TVShows />} />
           <Route path="/mylist" element={<MyList />} />
-          <Route path="/:id" element={<Detail />} />
+          <Route path="/:type/:id" element={<Detail />} />
+        <Route path="/search" element={<Search />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

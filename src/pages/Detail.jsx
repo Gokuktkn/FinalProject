@@ -1,46 +1,49 @@
 import React, { useEffect, useState } from 'react'
 import '../css/Detail.css'
+import axios from 'axios';
+import { Cast } from '../components/Cast';
 import { FaBookmark } from 'react-icons/fa';
 import { FaList } from 'react-icons/fa';
 import { FaPlay } from "react-icons/fa";
-import { Cast } from '../components/Cast';
-import axios from 'axios';
+import { IoClose } from "react-icons/io5";
 import { useParams } from 'react-router-dom';
 import Header from '../components/Header';
+import { Footer } from '../components/Footer';
 
 export const Detail = () => {
-  const params = useParams().id.slice(1);
-  const DETAIL_URL = `https://api.themoviedb.org/3/movie/${params}?language=en-US`;
-  const CAST_URL = `https://api.themoviedb.org/3/movie/${params}/credits?language=en-US`;
-  const TRAILER_URL = `https://api.themoviedb.org/3/movie/${params}/videos?language=en-US`;
-  const [listDetail, setListDetail] = useState([]);
+  const params = useParams().id;
+  const paramsType = useParams().type;
+  const movieData = {
+    DETAIL_URL: `https://api.themoviedb.org/3/${paramsType}/${params}?language=en-US`,
+    CAST_URL: `https://api.themoviedb.org/3/${paramsType}/${params}/credits?language=en-US`,
+    TRAILER_URL: `https://api.themoviedb.org/3/${paramsType}/${params}/videos?language=en-US`
+  }
+  const [listDetail, setListDetail] = useState({});
   const [listCast, setListCast] = useState([]);
   const [listTrailer, setListTrailer] = useState([]);
   let [trailerActive, setTrailerActive] = useState(false);
-  const options = {
-    method: 'GET',
-    headers: {
-      accept: 'application/json',
-      Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1N2RiYzEzNmIyZDVhYTJkNTM4MWFkMDBiNjZjMmM4NSIsInN1YiI6IjY1ZDU1YjRjZGIxNTRmMDE2NGEwNDk0OCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.zSLtWCpGKcGASs4bbXgo92iHp4cgrF68Nmxd499DCeE'
-    }
-  };
+
 
   useEffect(() => {
     const fetchData = async () => {
-      const dataDetail = await axios.get(DETAIL_URL, options)
-      const dataCast = await axios.get(CAST_URL, options)
-      const dataTrailer = await axios.get(TRAILER_URL, options)
-      setListDetail(dataDetail.data);
-      setListCast(dataCast.data.cast);
-      setListTrailer(dataTrailer.data.results);
-      return [dataDetail, dataCast, dataTrailer];
+      const options = {
+        method: 'GET',
+        headers: {
+          accept: 'application/json',
+          Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1N2RiYzEzNmIyZDVhYTJkNTM4MWFkMDBiNjZjMmM4NSIsInN1YiI6IjY1ZDU1YjRjZGIxNTRmMDE2NGEwNDk0OCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.zSLtWCpGKcGASs4bbXgo92iHp4cgrF68Nmxd499DCeE'
+        }
+      };
+      const dataDetail = await axios.get(movieData.DETAIL_URL, options);
+      const dataCast = await axios.get(movieData.CAST_URL, options);
+      const dataTrailer = await axios.get(movieData.TRAILER_URL, options);
+      setListDetail({ ...dataDetail?.data });
+      setListCast([...dataCast?.data?.cast]);
+      setListTrailer([...dataTrailer?.data?.results]);
     }
     fetchData();
   }, []);
 
-  const movieTitle = listDetail.title ? listDetail.title.toLowerCase().replace(/[^a-zA-Z ]/g, '').replace(/\s+/g, '-') : ""; //replace(/[^a-zA-Z ]/g, '') -> Loại bỏ ký tự không phải chữ và dấu cách, replace(/\s+/g, '-') -> Thay thế dấu cách bằng dấu -
-  // let trailerPosition = listTrailer.length();
-  // console.log(trailerPosition )
+  let trailerPosition = listTrailer.length > 0 ? listTrailer[listTrailer.length - 1] : null;
 
   const handleTrailer = () => {
     setTrailerActive(!trailerActive);
@@ -56,41 +59,28 @@ export const Detail = () => {
             <div className='function'>
               <button className='btn-list'><FaBookmark /></button>
               <button className='btn-list'><FaList /></button>
-              <div className='trailer-video'>
-                <button className='btn-trailer' onClick={handleTrailer}><FaPlay /> Play trailer</button>
+              <div className='movie-trailer'>
+                <button className='btn-play-trailer' onClick={handleTrailer}><FaPlay /> Play trailer</button>
                 {trailerActive && (
                   <div className="show-video">
-                    <button onClick={handleTrailer}>X</button>
+                    <div className="exit">
+                      <button onClick={handleTrailer} className='btn-exit'><IoClose className='exit-icon' /></button>
+                    </div>
                     <iframe
-                      width="560"
-                      height="315"
-                      src={`https://api.themoviedb.org/3/movie/${listDetail.id}-${movieTitle}#play=`}
+                      src={`https://www.youtube.com/embed/${trailerPosition.key}`}
                       title="YouTube video player"
                       frameborder="0"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                       allowfullscreen
+                      className='video-trailer'
                     ></iframe>
                   </div>
                 )}
               </div>
             </div>
-            <div className='overview'>
+            <div className='overview-detail'>
               <h3>Overview</h3>
               <p className='content-overview'>{listDetail.overview}</p>
-            </div>
-            <div className='producer'>
-              <div className='producer-info'>
-                <p className='name-producer'>Denis Villeneuve</p>
-                <p className='role'>Director, Screenplay</p>
-              </div>
-              <div className='producer-info'>
-                <p className='name-producer'>Frank Herbert</p>
-                <p className='role'>Novel</p>
-              </div>
-              <div className='producer-info'>
-                <p className='name-producer'>Jon Spaihts</p>
-                <p className='role'>Screenplay</p>
-              </div>
             </div>
           </div>
         </div>
@@ -125,6 +115,7 @@ export const Detail = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   )
 }
