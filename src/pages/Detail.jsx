@@ -1,20 +1,24 @@
 import React, { useEffect, useState } from 'react'
 import '../css/Detail.css'
+import axios from 'axios';
+import { Cast } from '../components/Cast';
 import { FaBookmark } from 'react-icons/fa';
 import { FaList } from 'react-icons/fa';
 import { FaPlay } from "react-icons/fa";
-import { Cast } from '../components/Cast';
-import axios from 'axios';
+import { IoClose } from "react-icons/io5";
 import { useParams } from 'react-router-dom';
 import Header from '../components/Header';
 import { Footer } from '../components/Footer';
 
 export const Detail = () => {
   const params = useParams().id;
+  const paramsType = useParams().type;
+  const movieData = {
+    DETAIL_URL: `https://api.themoviedb.org/3/${paramsType}/${params}?language=en-US`,
+    CAST_URL: `https://api.themoviedb.org/3/${paramsType}/${params}/credits?language=en-US`,
+    TRAILER_URL: `https://api.themoviedb.org/3/${paramsType}/${params}/videos?language=en-US`
 
-  const DETAIL_URL = `https://api.themoviedb.org/3/movie/${params}?language=en-US`;
-  const CAST_URL = `https://api.themoviedb.org/3/movie/${params}/credits?language=en-US`;
-  const TRAILER_URL = `https://api.themoviedb.org/3/movie/${params}/videos?language=en-US`;
+  }
   const [listDetail, setListDetail] = useState({});
   const [listCast, setListCast] = useState([]);
   const [listTrailer, setListTrailer] = useState([]);
@@ -30,18 +34,15 @@ export const Detail = () => {
           Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1N2RiYzEzNmIyZDVhYTJkNTM4MWFkMDBiNjZjMmM4NSIsInN1YiI6IjY1ZDU1YjRjZGIxNTRmMDE2NGEwNDk0OCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.zSLtWCpGKcGASs4bbXgo92iHp4cgrF68Nmxd499DCeE'
         }
       };
-      const dataDetail = await axios.get(DETAIL_URL, options)
-      const dataCast = await axios.get(CAST_URL, options)
-      const dataTrailer = await axios.get(TRAILER_URL, options)
-      const data = dataDetail;
+      const dataDetail = await axios.get(movieData.DETAIL_URL, options);
+      const dataCast = await axios.get(movieData.CAST_URL, options);
+      const dataTrailer = await axios.get(movieData.TRAILER_URL, options);
       setListDetail({ ...dataDetail?.data });
       setListCast([...dataCast?.data?.cast]);
       setListTrailer([...dataTrailer?.data?.results]);
     }
     fetchData();
   }, []);
-
-  const movieTitle = listDetail.title ? listDetail.title.toLowerCase().replace(/[^a-zA-Z ]/g, '').replace(/\s+/g, '-') : ""; //replace(/[^a-zA-Z ]/g, '') -> Loại bỏ ký tự không phải chữ và dấu cách, replace(/\s+/g, '-') -> Thay thế dấu cách bằng dấu -
 
   let trailerPosition = listTrailer.length > 0 ? listTrailer[listTrailer.length - 1] : null;
 
@@ -63,7 +64,9 @@ export const Detail = () => {
                 <button className='btn-play-trailer' onClick={handleTrailer}><FaPlay /> Play trailer</button>
                 {trailerActive && (
                   <div className="show-video">
-                    <button onClick={handleTrailer} className='btn-exit'>X</button>
+                    <div className="exit">
+                      <button onClick={handleTrailer} className='btn-exit'><IoClose className='exit-icon'/></button>
+                    </div>
                     <iframe
                       src={`https://www.youtube.com/embed/${trailerPosition.key}`}
                       title="YouTube video player"
@@ -76,7 +79,7 @@ export const Detail = () => {
                 )}
               </div>
             </div>
-            <div className='overview'>
+            <div className='overview-detail'>
               <h3>Overview</h3>
               <p className='content-overview'>{listDetail.overview}</p>
             </div>

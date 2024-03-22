@@ -9,7 +9,7 @@ import SearchCard from '../components/SearchCard';
 
 const Search = () => {
     const [searchParams, setSearchParams] = useSearchParams();
-    let [inputVal, setInputVal] = useState("");
+    let [inputVal, setInputVal] = useState(searchParams.get('key'));
     const [listMovieSearch, setListMovieSearch] = useState([]);
     const [listTVSearch, setListTVSearch] = useState([]);
     const options = {
@@ -53,14 +53,14 @@ const Search = () => {
                         <div className="tab-pane fade show active" id="v-pills-movies" role="tabpanel" aria-labelledby="v-pills-movies-tab">
                             <div className="movieList list-content">
                                 {listMovieSearch.map(item => {
-                                    return <Link to={`/${item.id}`} key={item.id}><SearchCard data={item} /></Link>
+                                    return <Link to={`/movie/${item.id}`} key={item.id}><SearchCard data={item} /></Link>
                                 })}
                             </div>
                         </div>
                         <div className="tab-pane fade" id="v-pills-tv" role="tabpanel" aria-labelledby="v-pills-tv-tab">
                             <div className="tvList list-content">
                                 {listTVSearch.map(item => {
-                                    return <Link to={`/${item.id}`} key={item.id}><SearchCard data={item} /></Link>
+                                    return <Link to={`/tv/${item.id}`} key={item.id}><SearchCard data={item} /></Link>
                                 })}
                             </div>
                         </div>

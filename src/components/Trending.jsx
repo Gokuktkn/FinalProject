@@ -7,7 +7,7 @@ export const Trending = () => {
     <div className='container trending'>
       <p className='title-body'>Trending</p>
       <div className='trending-list'>
-        <Movie url='https://api.themoviedb.org/3/trending/movie/day?language=en-US'/>
+        <Movie url='https://api.themoviedb.org/3/trending/movie/day?language=en-US' />
       </div>
     </div>
   )

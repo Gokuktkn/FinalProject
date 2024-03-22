@@ -36,6 +36,15 @@
     background-color: #021E34;
 }
 
+.exit {
+    background-color: #000;
+    position: fixed;
+    width: 90vw;
+    height: 45px;
+    top: 81px;
+    left: 50px;
+}
+
 .btn-play-trailer{
     background: none;
     border: none;
@@ -47,22 +56,28 @@
 
 .video-trailer{
     position: fixed;
-    top: 50vh;
+    top: 57vh;
     left: 50vw;
     transform: translate(-50%, -50%);
     width: 90vw;
     height: 80vh;
 }
 
-.btn-exit{
+.btn-exit {
     position: absolute;
     z-index: 1;
-    top: 8%;
-    right: 4%;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 30px;
     width: 20px;
     background: none;
     color: #fff;
     border: none;
+}
+
+.exit-icon {
+    height: 25px;
+    width: 25px;
 }
 
 .name-info {
@@ -70,7 +85,7 @@
     font-weight: bold;
 }
 
-.overview {
+.overview-detail {
     display: flex;
     flex-direction: column;
     gap: 10px;
