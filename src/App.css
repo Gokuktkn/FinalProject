@@ -5,7 +5,7 @@
 }
 
 .header-container-fluid {
-  background-color: #021E34;
+  background-color: #021e34;
   position: sticky;
   top: 0;
   z-index: 2;
@@ -16,6 +16,7 @@
 .header-left,
 .header-right {
   display: flex;
+  align-items: center;
 }
 
 .header {
@@ -45,11 +46,10 @@
 }
 
 .search-logo {
-  height: 20px;
-  width: 20px;
+  height: 30px;
+  width: 30px;
   color: deepskyblue;
 }
-
 
 .footer {
   display: flex;
@@ -77,21 +77,48 @@
   display: flex;
   align-items: center;
   gap: 20px;
+  justify-content: space-between;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.sort-genre {
+  display: flex;
+  gap: 10px;
 }
 
 .movies-container {
   display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 768px) {
+  .movies-container {
+    flex-direction: row; /* Change to column layout on smaller screens */
+  }
 }
 
 .movies-sidebar {
   padding-left: 0;
+  margin-bottom: 20px;
+}
+
+.filter-slider {
+  margin-bottom: 30px;
 }
 
 .movies-list-pagination {
   padding-right: 0;
+  padding-left: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-left: 20px;
+}
+
+.pagination {
+  margin-top: 10px;
+  margin-bottom: 20px;
 }
 
 .movies-list {
@@ -118,6 +145,17 @@
   flex: 6;
 }
 
+@media (max-width: 991px) {
+  .login-wallaper {
+    display: none;
+  }
+  .login {
+    display: grid;
+    place-items: center;
+    height: 100vh;
+  }
+}
+
 .login-wallaper img {
   width: 100%;
   height: 100%;
@@ -130,6 +168,8 @@
   display: grid;
   place-items: center;
   text-align: left;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .login-form {
@@ -141,16 +181,132 @@
   place-items: center;
 }
 
-.overview {
-  overflow: hidden;
-  text-overflow: ellipsis;
+.movie-card-overview {
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
-  max-height: 4.5em;
+  overflow: hidden;
+  height: calc(1.6em * 3);
+}
+
+.movie-card-title {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  height: calc(1.2em * 2);
 }
 
 .movie-card-image {
   object-fit: cover;
   height: 280px;
+}
+
+@media (max-width: 767.98px) {
+  .movie-card-image {
+    height: 700px; /* Increase height for smaller devices */
+  }
+}
+
+@media (max-width: 991.98px) {
+  .movie-card-image {
+    height: 400px; /* Increase height for smaller devices */
+  }
+}
+
+.mylist-watchlist {
+  display: flex;
+  overflow-x: auto;
+  padding: 10px;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.mylist-favlist {
+  display: flex;
+  overflow-x: auto;
+  padding: 10px;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.mylist-watchlist .movie-card-image {
+  width: 200px;
+}
+
+.mylist-favlist .movie-card-image {
+  width: 200px;
+}
+
+.header-right img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: white;
+}
+
+.mylist-body .loading-spinner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+}
+
+.movies-body .loading-spinner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+}
+
+.tvshows-body .loading-spinner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+}
+
+.filter-date-picker-div {
+  gap: 20px;
+}
+@media (max-width: 767.98px) {
+  .movies-list-pagination {
+    margin-left: 0; /* Reset margin for smaller devices */
+  }
+}
+
+@media (max-width: 991.98px) {
+  .movies-list {
+    grid-template-columns: repeat(2, 1fr); /* Adjust for medium devices */
+  }
+}
+
+@media (max-width: 767.98px) {
+  .movies-list {
+    grid-template-columns: repeat(1, 1fr); /* Adjust for smaller devices */
+  }
+}
+
+@media (max-width: 991.98px) {
+  .movies-container .row {
+    flex-direction: column; /* Change the direction of the row to column */
+  }
+}
+
+@media (max-width: 767.98px) {
+  .tab {
+    display: none; /* Hide the left component for smaller screens */
+  }
+  .hamburger-icon {
+    display: block; /* Show the hamburger icon */
+  }
+}
+
+@media (min-width: 768px) {
+  .hamburger-icon {
+    display: none; /* Hide the hamburger icon for larger screens */
+  }
 }

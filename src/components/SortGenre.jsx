@@ -3,7 +3,7 @@ import Dropdown from "react-bootstrap/Dropdown";
 
 const SortGenre = ({ handleGenreSelect, handleSortChange }) => {
   return (
-    <div>
+    <div className="sort-genre">
       <Dropdown>
         <Dropdown.Toggle variant="success" id="movie-genre">
           Genre
