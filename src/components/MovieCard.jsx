@@ -20,7 +20,7 @@ const MovieCard = ({ title, overview, img, id }) => {
     if (!login) {
       navigate("/login");
     } else {
-      navigate(`/${id}`);
+      navigate(`/movies/${id}`);
     }
   };
 
@@ -94,7 +94,7 @@ const MovieCard = ({ title, overview, img, id }) => {
         />
         <Card.Body>
           <Card.Title className="movie-card-title">{title? title : <em>No title available</em>}</Card.Title>
-          <Card.Text className="overview">{overview? overview : <em>No introduction available</em>}</Card.Text>
+          <Card.Text className="movie-card-overview">{overview? overview : <em>No introduction available</em>}</Card.Text>
 
           {login ? (
             <Tooltip title="Add to Watchlist">
@@ -110,7 +110,7 @@ const MovieCard = ({ title, overview, img, id }) => {
             </Tooltip>
           )}
 
-          {/* Add to Fav list */}
+      
           {login ? (
             <Tooltip title="Add to Favorite list">
               <IconButton color="primary" onClick={addToFavlist}>

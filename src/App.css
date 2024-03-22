@@ -2,11 +2,10 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  
 }
 
 .header-container-fluid {
-  background-color: #021E34;
+  background-color: #021e34;
   position: sticky;
   top: 0;
   z-index: 1;
@@ -17,7 +16,7 @@
 .header-left,
 .header-right {
   display: flex;
- align-items: center;
+  align-items: center;
 }
 
 .header {
@@ -56,7 +55,7 @@
   display: flex;
   justify-content: center;
   gap: 20px;
-  background-image: linear-gradient(135deg, #000a39, #031E34);
+  background-image: linear-gradient(135deg, #000a39, #031e34);
   padding: 40px;
 }
 
@@ -81,10 +80,18 @@
 
 .movies-container {
   display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 768px) {
+  .movies-container {
+    flex-direction: row; /* Change to column layout on smaller screens */
+  }
 }
 
 .movies-sidebar {
   padding-left: 0;
+  margin-bottom: 20px;
 }
 
 .filter-slider {
@@ -93,6 +100,7 @@
 
 .movies-list-pagination {
   padding-right: 0;
+  padding-left: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -128,6 +136,17 @@
   flex: 6;
 }
 
+@media (max-width: 991px) {
+  .login-wallaper {
+    display: none;
+  }
+  .login {
+    display: grid;
+    place-items: center;
+    height: 100vh;
+  }
+}
+
 .login-wallaper img {
   width: 100%;
   height: 100%;
@@ -140,6 +159,8 @@
   display: grid;
   place-items: center;
   text-align: left;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .login-form {
@@ -151,22 +172,20 @@
   place-items: center;
 }
 
-.overview {
-  overflow: hidden;
-  text-overflow: ellipsis;
+.movie-card-overview {
   display: -webkit-box;
-  -webkit-line-clamp: 3; 
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
-  height: 4.5em; 
+  overflow: hidden;
+  height: calc(1.6em * 3);
 }
 
 .movie-card-title {
-  height: calc(1.2em * 2); 
-  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
   overflow: hidden;
-  line-height: 1.2em; 
-
- 
+  height: calc(1.2em * 2);
 }
 
 .movie-card-image {
@@ -174,19 +193,31 @@
   height: 280px;
 }
 
+@media (max-width: 767.98px) {
+  .movie-card-image {
+    height: 700px; /* Increase height for smaller devices */
+  }
+}
+
+@media (max-width: 991.98px) {
+  .movie-card-image {
+    height: 400px; /* Increase height for smaller devices */
+  }
+}
+
 .mylist-watchlist {
-  display: flex; 
-  overflow-x: auto; 
-  padding: 10px; 
-  gap: 10px; 
+  display: flex;
+  overflow-x: auto;
+  padding: 10px;
+  gap: 10px;
   margin-bottom: 20px;
 }
 
 .mylist-favlist {
-  display: flex; 
-  overflow-x: auto; 
-  padding: 10px; 
-  gap: 10px; 
+  display: flex;
+  overflow-x: auto;
+  padding: 10px;
+  gap: 10px;
   margin-bottom: 20px;
 }
 
@@ -211,4 +242,62 @@
   justify-content: center;
   width: 100vw;
   height: 100vh;
+}
+
+.movies-body .loading-spinner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+}
+
+.tvshows-body .loading-spinner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+}
+
+.filter-date-picker-div {
+  gap: 20px;
+}
+@media (max-width: 767.98px) {
+  .movies-list-pagination {
+    margin-left: 0; /* Reset margin for smaller devices */
+  }
+}
+
+@media (max-width: 991.98px) {
+  .movies-list {
+    grid-template-columns: repeat(2, 1fr); /* Adjust for medium devices */
+  }
+}
+
+@media (max-width: 767.98px) {
+  .movies-list {
+    grid-template-columns: repeat(1, 1fr); /* Adjust for smaller devices */
+  }
+}
+
+@media (max-width: 991.98px) {
+  .movies-container .row {
+    flex-direction: column; /* Change the direction of the row to column */
+  }
+}
+
+@media (max-width: 767.98px) {
+  .tab {
+    display: none; /* Hide the left component for smaller screens */
+  }
+  .hamburger-icon {
+    display: block; /* Show the hamburger icon */
+  }
+}
+
+@media (min-width: 768px) {
+  .hamburger-icon {
+    display: none; /* Hide the hamburger icon for larger screens */
+  }
 }

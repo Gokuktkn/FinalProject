@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
+import { IoMenu } from "react-icons/io5";
 
 const Header = () => {
   const login = localStorage.getItem("data");
@@ -16,13 +17,13 @@ const Header = () => {
   };
 
   // user menu pop up
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
+  const [anchorElProfile, setAnchorElProfile] = React.useState(null);
+  const openProfile = Boolean(anchorElProfile);
+  const handleClickProfile = (event) => {
+    setAnchorElProfile(event.currentTarget);
   };
   const handleClose = () => {
-    setAnchorEl(null);
+    setAnchorElProfile(null);
   };
 
   const handleMyListClick = () => {
@@ -33,6 +34,25 @@ const Header = () => {
     localStorage.removeItem("data");
     navigate("/");
   };
+
+  // hamburger pop up 
+  const [anchorElHamburger, setAnchorElHamburger] = React.useState(null);
+  const openHamburger = Boolean(anchorElHamburger);
+  const handleClickHamburger = (event) => {
+    setAnchorElHamburger(event.currentTarget);
+  };
+  const handleCloseHamburger = () => {
+    setAnchorElProfile(null);
+  };
+
+  const handleMoviesClick = () => {
+    navigate("/movies");
+  };
+
+  const handleTvshowsClick = () => {
+    navigate("/tvshows");
+  };
+  
 
   return (
     <div className="container-fluid header-container-fluid">
@@ -55,11 +75,49 @@ const Header = () => {
           <div className="tab">
             <Link to={"/mylist"}>My List</Link>
           </div>
+          <div className="hamburger-icon" size={60} onClick={handleClickHamburger}>
+            <IoMenu />
+          </div>
+          <Menu
+              id="basic-menu-hamburger"
+              anchorEl={anchorElHamburger}
+              open={openHamburger}
+              onClose={handleCloseHamburger}
+              MenuListProps={{
+                "aria-labelledby": "basic-button",
+              }}
+            >
+              <MenuItem
+                onClick={() => {
+                  handleCloseHamburger();
+                  handleMoviesClick();
+                }}
+              >
+                Movies
+              </MenuItem>
+              <MenuItem
+                onClick={() => {
+                  handleCloseHamburger();
+                  handleTvshowsClick();
+                }}
+              >
+                TV Shows
+              </MenuItem>
+              <MenuItem
+                onClick={() => {
+                  handleCloseHamburger();
+                  handleMyListClick();
+                }}
+              >
+                My list
+              </MenuItem>
+            </Menu>
         </div>
         {login ? (
           <div className="header-right">
+            
             <p>Welcome, {loginData.firstName}</p>
-            <div className="avatar" onClick={handleClick}>
+            <div className="avatar" onClick={handleClickProfile}>
               <img src={imgageSrc} alt="user-avatar" />
             </div>
             <div className="search">
@@ -67,8 +125,8 @@ const Header = () => {
             </div>
             <Menu
               id="basic-menu"
-              anchorEl={anchorEl}
-              open={open}
+              anchorEl={anchorElProfile}
+              open={openProfile}
               onClose={handleClose}
               MenuListProps={{
                 "aria-labelledby": "basic-button",

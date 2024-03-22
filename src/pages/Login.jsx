@@ -17,7 +17,7 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post ("https://dummyjson.com/auth/login", {
+      const response = await axios.post("https://dummyjson.com/auth/login", {
         username: username,
         password: password,
       });
@@ -50,7 +50,8 @@ const Login = () => {
       </div>
       <div className="login-form-section">
         <Form className="login-form" onSubmit={handleLogin}>
-          <h1>Welcome back</h1>
+          <h1>Welcome back!</h1>
+          <br></br>
           <Form.Group className="mb-3" controlId="formGroupEmail">
             <Form.Label>Username</Form.Label>
             <Form.Control
@@ -71,9 +72,6 @@ const Login = () => {
           </Form.Group>
           {error && <p className="text-danger">{error}</p>}
           <Button type="submit">Log in</Button>
-          <p>
-            Don't have an account yet? <a href="">Register</a>
-          </p>
         </Form>
       </div>
     </div>

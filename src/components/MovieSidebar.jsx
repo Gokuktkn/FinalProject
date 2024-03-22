@@ -101,7 +101,7 @@ const MovieSidebar = ({
           <label className="form-label">Release Date</label>
           <div className="filter-date-picker-div">
             <DatePicker
-              className="filter-date-picker"
+              className="filter-date-picker-1"
               selected={startDate}
               onChange={(date) => handleStartDateChange(date)}
               slotProps={{

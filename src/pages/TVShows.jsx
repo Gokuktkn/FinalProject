@@ -8,6 +8,7 @@ import { useState, useEffect, useReducer } from "react";
 import MovieSidebar from "../components/MovieSidebar";
 import SortGenre from "../components/SortGenre";
 import "react-toastify/dist/ReactToastify.css";
+import { BeatLoader } from "react-spinners";
 
 const initialState = {
   movies: [],
@@ -85,9 +86,11 @@ const apiInstance = axios.create({
 
 const TVShows = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     const fetchMovies = async () => {
+      setLoading(true);
       try {
         let endpoint = "discover/tv";
 
@@ -140,6 +143,8 @@ const TVShows = () => {
         });
       } catch (error) {
         console.error("Error fetching data: ", error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -188,10 +193,9 @@ const TVShows = () => {
   const handleEndDateChange = (endDate) => {
     dispatch({ type: "SET_END_DATE", payload: endDate });
   };
-  
-  
+
   return (
-    <>
+    <div className="tvshows-body">
       <Header />
       <div className="container movies-heading">
         <h1>TV Shows</h1>
@@ -201,42 +205,48 @@ const TVShows = () => {
         />
       </div>
 
-      <div className="container movies-container">
-        <div className="movies-sidebar col-md-2">
-          <MovieSidebar
-            onUserScoreChange={onUserScoreChange}
-            onUserVoteChange={onUserVoteChange}
-            onMovieLengthChange={onMovieLengthChange}
-            onStartDateChange={handleStartDateChange}
-            onEndDateChange={handleEndDateChange}
-          />
+      {loading ? (
+        <div className="loading-spinner">
+          <BeatLoader color="#36d7b7" size={30} />
         </div>
-
-        <div className="movies-list-pagination col-md-10">
-          <div className="movies-list">
-            {state.movies.map((movie) => (
-              <MovieCard
-                key={movie.id}
-                id={movie.id}
-                class="grid-item"
-                title={movie.name}
-                overview={movie.overview}
-                img={movie.poster_path}
-              ></MovieCard>
-            ))}
-          </div>
-          <div className="pagination">
-            <PaginationCard
-              currentPage={state.currentPage}
-              totalPages={state.totalPages}
-              onPageChange={handlePageChange}
+      ) : (
+        <div className="container movies-container">
+          <div className="movies-sidebar col-md-2">
+            <MovieSidebar
+              onUserScoreChange={onUserScoreChange}
+              onUserVoteChange={onUserVoteChange}
+              onMovieLengthChange={onMovieLengthChange}
+              onStartDateChange={handleStartDateChange}
+              onEndDateChange={handleEndDateChange}
             />
           </div>
+
+          <div className="movies-list-pagination col-md-10">
+            <div className="movies-list">
+              {state.movies.map((movie) => (
+                <MovieCard
+                  key={movie.id}
+                  id={movie.id}
+                  class="grid-item"
+                  title={movie.name}
+                  overview={movie.overview}
+                  img={movie.poster_path}
+                ></MovieCard>
+              ))}
+            </div>
+            <div className="pagination">
+              <PaginationCard
+                currentPage={state.currentPage}
+                totalPages={state.totalPages}
+                onPageChange={handlePageChange}
+              />
+            </div>
+          </div>
         </div>
-      </div>
+      )}
 
       <Footer />
-    </>
+    </div>
   );
 };
 

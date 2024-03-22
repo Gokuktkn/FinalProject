@@ -10,7 +10,6 @@ import SortGenre from "../components/SortGenre";
 import "react-toastify/dist/ReactToastify.css";
 import { BeatLoader } from "react-spinners";
 
-
 const initialState = {
   movies: [],
   currentPage: 1,
@@ -144,8 +143,8 @@ const Movies = () => {
       } catch (error) {
         console.error("Error fetching data: ", error);
       } finally {
-      setLoading(false); 
-    }
+        setLoading(false);
+      }
     };
 
     fetchMovies();
@@ -195,7 +194,7 @@ const Movies = () => {
   };
 
   return (
-    <>
+    <div className="movies-body">
       <Header />
       <div className="container movies-heading">
         <h1>Movies</h1>
@@ -205,46 +204,46 @@ const Movies = () => {
         />
       </div>
 
-      {loading? (
-      <div className="loading-spinner" >
-        <BeatLoader color="#36d7b7" size={50}/>
-      </div>
-    ) : (
-      <div className="container movies-container">
-        <div className="movies-sidebar col-md-2">
-          <MovieSidebar
-            onUserScoreChange={onUserScoreChange}
-            onUserVoteChange={onUserVoteChange}
-            onMovieLengthChange={onMovieLengthChange}
-            onStartDateChange={handleStartDateChange}
-            onEndDateChange={handleEndDateChange}
-          />
+      {loading ? (
+        <div className="loading-spinner">
+          <BeatLoader color="#36d7b7" size={30} />
         </div>
-
-        <div className="movies-list-pagination col-md-10">
-          <div className="movies-list">
-            {state.movies.map((movie) => (
-              <MovieCard
-                key={movie.id}
-                id={movie.id}
-                class="grid-item"
-                title={movie.title}
-                overview={movie.overview}
-                img={movie.poster_path}
-              ></MovieCard>
-            ))}
-          </div>
-          <div className="pagination">
-            <PaginationCard
-              currentPage={state.currentPage}
-              totalPages={state.totalPages}
-              onPageChange={handlePageChange}
+      ) : (
+        <div className="container movies-container">
+          <div className="movies-sidebar col-md-2">
+            <MovieSidebar
+              onUserScoreChange={onUserScoreChange}
+              onUserVoteChange={onUserVoteChange}
+              onMovieLengthChange={onMovieLengthChange}
+              onStartDateChange={handleStartDateChange}
+              onEndDateChange={handleEndDateChange}
             />
           </div>
+
+          <div className="movies-list-pagination col-md-10">
+            <div className="movies-list">
+              {state.movies.map((movie) => (
+                <MovieCard
+                  key={movie.id}
+                  id={movie.id}
+                  title={movie.title}
+                  overview={movie.overview}
+                  img={movie.poster_path}
+                ></MovieCard>
+              ))}
+            </div>
+            <div className="pagination">
+              <PaginationCard
+                currentPage={state.currentPage}
+                totalPages={state.totalPages}
+                onPageChange={handlePageChange}
+              />
+            </div>
+          </div>
         </div>
-      </div>)}
+      )}
       <Footer />
-    </>
+    </div>
   );
 };
 
