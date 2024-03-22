@@ -1,5 +1,4 @@
 import React from 'react'
-import { IoSearch } from 'react-icons/io5';
 import { Link } from 'react-router-dom'
 
 const Header = () => {
@@ -18,7 +17,6 @@ const Header = () => {
                     <div className='language'></div>
                     <div className='login'>Login</div>
                     <div className='register'>Join TMDB</div>
-                    <div className='search'><IoSearch className='search-logo' /></div>
                 </div>
             </div>
         </div>

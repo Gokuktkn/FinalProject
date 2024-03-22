@@ -24,7 +24,7 @@ export const Movie = ({ url }) => {
     <div className='movie-list'>
       {
         listMovie.length > 0 && listMovie.map(item => {
-          return <Link to={`/${item.id}`} key={item.id}><div className='movie'><img src={`https://media.themoviedb.org/t/p/w300_and_h450_bestv2${item.poster_path}`} alt='Movie img' className='img-movie' /><div className="title-movie"><p className='name-movie'>{item.title}</p><p className='time-movie'>{item.release_date}</p></div></div></Link>
+          return <Link to={`/movie/${item.id}`} key={item.id}><div className='movie'><img src={`https://media.themoviedb.org/t/p/w300_and_h450_bestv2${item.poster_path}`} alt='Movie img' className='img-movie' /><div className="title-movie"><p className='name-movie'>{item.title}</p><p className='time-movie'>{item.release_date}</p></div></div></Link>
         })
       }
     </div>
