@@ -42,7 +42,7 @@ const Header = () => {
     setAnchorElHamburger(event.currentTarget);
   };
   const handleCloseHamburger = () => {
-    setAnchorElProfile(null);
+    setAnchorElHamburger(null);
   };
 
   const handleMoviesClick = () => {
@@ -152,7 +152,7 @@ const Header = () => {
           </div>
         ) : (
           <div className="header-right">
-            <div className="login" onClick={turnToLoginPage}>
+            <div className="login-header" onClick={turnToLoginPage}>
               Login
             </div>
             <div className="search">

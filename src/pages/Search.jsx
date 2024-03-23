@@ -7,39 +7,57 @@ import { IoSearch } from "react-icons/io5";
 import { Link, useSearchParams } from 'react-router-dom';
 import SearchCard from '../components/SearchCard';
 import PaginationCard from '../components/PaginationCard';
+import { BeatLoader } from "react-spinners";
 
 const Search = () => {
     const [searchParams, setSearchParams] = useSearchParams();
     let [inputVal, setInputVal] = useState(searchParams.get('key'));
     const [listMovieSearch, setListMovieSearch] = useState([]);
     const [listTVSearch, setListTVSearch] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPage, setTotalPage] = useState(0);
+    const [loading, setLoading] = useState(true);
     const options = {
         method: 'GET',
         headers: {
             accept: 'application/json',
-            Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1N2RiYzEzNmIyZDVhYTJkNTM4MWFkMDBiNjZjMmM4NSIsInN1YiI6IjY1ZDU1YjRjZGIxNTRmMDE2NGEwNDk0OCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.zSLtWCpGKcGASs4bbXgo92iHp4cgrF68Nmxd499DCeE'
+            Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0YTFlMmNhMmI3MDFmMTFhMjhlMDNmZDA3ZGY0YTUxMiIsInN1YiI6IjY1ZGVmMWFjZDVkYmMyMDE2MzU3OTZlNCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.9c2ieIxbJ--UcJhcxvgLGM7_YtCYp6l_MD6XKktXggo'
         }
     };
+
     useEffect(() => {
         const fetchData = async () => {
-            const movieData = await axios.get(`https://api.themoviedb.org/3/search/movie?query=${searchParams.get('key')}&include_adult=false&language=en-US&page=1`, options)
+            setLoading(true);
+            const movieData = await axios.get(`https://api.themoviedb.org/3/search/movie?query=${searchParams.get('key')}&include_adult=false&language=en-US&page=${currentPage}`, options)
             const tvShowData = await axios.get(`https://api.themoviedb.org/3/search/tv?query=${searchParams.get('key')}&include_adult=false&language=en-US&page=1`, options)
             setListMovieSearch(movieData.data.results);
             setListTVSearch(tvShowData.data.results);
+            setCurrentPage(movieData.data.page);
+            setTotalPage(movieData.data.total_pages);
+            setLoading(false);
         }
         fetchData();
-    }, [searchParams.get('key')])
-    const handleSearch = () => {
+    }, [searchParams.get('key'), currentPage])
+    const handleSearch = (e) => {
+        e.preventDefault();
         setSearchParams({ key: inputVal });
+        console.log(inputVal)
+    }
+    const handlePageChange = (page) => {
+        setCurrentPage(page)
     }
     return (
         <div className='search-page'>
             <Header />
-            <div className="container search-page-content">
-                <div className="search-input">
-                    <input type="text" value={inputVal} onChange={(e) => setInputVal(e.target.value)} />
-                    <IoSearch className='search-icon' onClick={handleSearch} />
+            {loading ? (
+                <div className="loading-spinner">
+                    <BeatLoader color="#36d7b7" size={30} />
                 </div>
+            ) : (<div className="container search-page-content">
+                <form className="search-input" onSubmit={handleSearch}>
+                    <input type="text" value={inputVal} onChange={(e) => setInputVal(e.target.value)} />
+                    <button className='btn-search' onClick={handleSearch} ><IoSearch /></button>
+                </form>
                 <div className="search-content">
                     <div className="search-tab">
                         <div className="search-filter">
@@ -65,17 +83,17 @@ const Search = () => {
                                 })}
                             </div>
                         </div>
+                        <div className="pagination-search">
+                            <PaginationCard
+                                currentPage={currentPage}
+                                totalPages={totalPage}
+                                onPageChange={handlePageChange}
+                            />
+                        </div>
                     </div>
-                    {/* <div className="pagination">
-                        <PaginationCard
-                            currentPage={state.currentPage}
-                            totalPages={state.totalPages}
-                            onPageChange={handlePageChange}
-                        />
-                    </div> */}
                 </div>
-            </div>
-            <Footer />
+                < Footer />
+            </div>)}
         </div>
     )
 }

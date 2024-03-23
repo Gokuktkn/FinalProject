@@ -23,7 +23,6 @@
   width: 100%;
   justify-content: space-between;
   padding: 15px 0;
-  font-weight: bold;
   color: #fff;
 }
 
@@ -68,6 +67,23 @@
   font-weight: bolder;
 }
 
+@media (max-width: 768px) {
+  .footer{
+    padding: 40px 10px;
+    align-items: center;
+  }
+  .footer-content span{
+    display: none;
+  }
+}
+
+@media (max-width: 576px){
+  .footer{
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
 .logo-img img {
   width: 130px;
   height: 94px;
@@ -94,7 +110,8 @@
 
 @media (min-width: 768px) {
   .movies-container {
-    flex-direction: row; /* Change to column layout on smaller screens */
+    flex-direction: row;
+    /* Change to column layout on smaller screens */
   }
 }
 
@@ -149,6 +166,7 @@
   .login-wallaper {
     display: none;
   }
+
   .login {
     display: grid;
     place-items: center;
@@ -204,13 +222,15 @@
 
 @media (max-width: 767.98px) {
   .movie-card-image {
-    height: 700px; /* Increase height for smaller devices */
+    height: 700px;
+    /* Increase height for smaller devices */
   }
 }
 
 @media (max-width: 991.98px) {
   .movie-card-image {
-    height: 400px; /* Increase height for smaller devices */
+    height: 400px;
+    /* Increase height for smaller devices */
   }
 }
 
@@ -272,41 +292,50 @@
 .filter-date-picker-div {
   gap: 20px;
 }
+
 @media (max-width: 767.98px) {
   .movies-list-pagination {
-    margin-left: 0; /* Reset margin for smaller devices */
+    margin-left: 0;
+    /* Reset margin for smaller devices */
   }
 }
 
 @media (max-width: 991.98px) {
   .movies-list {
-    grid-template-columns: repeat(2, 1fr); /* Adjust for medium devices */
+    grid-template-columns: repeat(2, 1fr);
+    /* Adjust for medium devices */
   }
 }
 
 @media (max-width: 767.98px) {
   .movies-list {
-    grid-template-columns: repeat(1, 1fr); /* Adjust for smaller devices */
+    grid-template-columns: repeat(1, 1fr);
+    /* Adjust for smaller devices */
   }
 }
 
 @media (max-width: 991.98px) {
   .movies-container .row {
-    flex-direction: column; /* Change the direction of the row to column */
+    flex-direction: column;
+    /* Change the direction of the row to column */
   }
 }
 
 @media (max-width: 767.98px) {
   .tab {
-    display: none; /* Hide the left component for smaller screens */
+    display: none;
+    /* Hide the left component for smaller screens */
   }
+
   .hamburger-icon {
-    display: block; /* Show the hamburger icon */
+    display: block;
+    /* Show the hamburger icon */
   }
 }
 
 @media (min-width: 768px) {
   .hamburger-icon {
-    display: none; /* Hide the hamburger icon for larger screens */
+    display: none;
+    /* Hide the hamburger icon for larger screens */
   }
 }
