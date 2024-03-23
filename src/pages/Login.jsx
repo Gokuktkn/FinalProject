@@ -5,6 +5,8 @@ import { useState, useContext } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../App";
+import {  toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -21,9 +23,9 @@ const Login = () => {
         username: username,
         password: password,
       });
-      console.log(response);
+      // console.log(response);
       if (response.data) {
-        console.log("Login successful");
+        toast.success("Successfully logged in!");
         const data = JSON.stringify(response.data);
         localStorage.setItem("data", data);
         if (location.state && location.state.from) {
@@ -35,6 +37,7 @@ const Login = () => {
         setError("Invalid email or password");
       }
     } catch (error) {
+      toast.error("Error logging in");
       console.error("Error logging in:", error);
       setError("An error occurred. Please try again later.");
     }

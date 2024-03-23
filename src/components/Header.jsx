@@ -42,7 +42,7 @@ const Header = () => {
     setAnchorElHamburger(event.currentTarget);
   };
   const handleCloseHamburger = () => {
-    setAnchorElProfile(null);
+    setAnchorElHamburger(null);
   };
 
   const handleMoviesClick = () => {
@@ -115,13 +115,9 @@ const Header = () => {
         </div>
         {login ? (
           <div className="header-right">
-            
             <p>Welcome, {loginData.firstName}</p>
             <div className="avatar" onClick={handleClickProfile}>
               <img src={imgageSrc} alt="user-avatar" />
-            </div>
-            <div className="search">
-              <IoSearch className="search-logo" />
             </div>
             <Menu
               id="basic-menu"
@@ -152,7 +148,7 @@ const Header = () => {
           </div>
         ) : (
           <div className="header-right">
-            <div className="login" onClick={turnToLoginPage}>
+            <div className="login-header" onClick={turnToLoginPage}>
               Login
             </div>
             <div className="search">
