@@ -23,7 +23,6 @@ const Login = () => {
         username: username,
         password: password,
       });
-      // console.log(response);
       if (response.data) {
         toast.success("Successfully logged in!");
         const data = JSON.stringify(response.data);
