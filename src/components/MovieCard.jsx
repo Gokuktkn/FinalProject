@@ -3,13 +3,14 @@ import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import React from "react";
 import { MdBookmarkAdd } from "react-icons/md";
-import { IconButton, Tooltip } from "@mui/material";
+import { Backdrop, IconButton, Tooltip, tooltipClasses} from "@mui/material";
 import axios from "axios";
 import { FcLike } from "react-icons/fc";
 import {  toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const MovieCard = ({ title, overview, img, id }) => {
+
+const MovieCard = ({ title, overview, img, id, mediaType }) => {
   const navigate = useNavigate();
 
   const login = localStorage.getItem("data");
@@ -20,7 +21,11 @@ const MovieCard = ({ title, overview, img, id }) => {
     if (!login) {
       navigate("/login");
     } else {
-      navigate(`/movies/${id}`);
+      if (mediaType === "movie") {
+        navigate(`/movie/${id}`);
+      } else if (mediaType === "tvshow") {
+        navigate(`/tv/${id}`);
+      }
     }
   };
 
@@ -40,7 +45,7 @@ const MovieCard = ({ title, overview, img, id }) => {
       const url = `https://api.themoviedb.org/3/account/21038321/watchlist`;
       const response = await axios.post(url, dataBody, { headers });
       if (response) {
-        console.log(response);
+        // console.log(response);
         toast.success("Added to 🍿 WATCHLIST");
       } else {
         console.error("Failed to add movie to watchlist");
@@ -103,7 +108,7 @@ const MovieCard = ({ title, overview, img, id }) => {
               </IconButton>
             </Tooltip>
           ) : (
-            <Tooltip title="You need to log in first">
+            <Tooltip title="You need to log in first" >
               <IconButton color="primary" disable>
                 <MdBookmarkAdd color="darkOrange" />
               </IconButton>
@@ -118,7 +123,7 @@ const MovieCard = ({ title, overview, img, id }) => {
               </IconButton>
             </Tooltip>
           ) : (
-            <Tooltip title="You need to log in first">
+            <Tooltip title="You need to log in first" >
               <IconButton disable>
                 <FcLike />
               </IconButton>

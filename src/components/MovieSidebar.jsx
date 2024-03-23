@@ -64,7 +64,7 @@ const MovieSidebar = ({
           <strong>Filter</strong>
         </Accordion.Header>
         <Accordion.Body>
-          <label className="form-label">User score</label>
+          <label className="form-label">Rating</label>
           <Slider
             className="filter-slider"
             range
@@ -75,7 +75,7 @@ const MovieSidebar = ({
             step={0.5}
             marks={userScoreMarks}
           />
-          <label className="form-label">Minimum user vote</label>
+          <label className="form-label">Minimum vote</label>
           <Slider
             className="filter-slider"
             onChange={onUserVoteChange}

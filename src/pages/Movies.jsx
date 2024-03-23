@@ -87,6 +87,7 @@ const apiInstance = axios.create({
 const Movies = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [loading, setLoading] = useState(true);
+  
   useEffect(() => {
     const fetchMovies = async () => {
       setLoading(true);
@@ -129,7 +130,7 @@ const Movies = () => {
             .split("T")[0];
         }
 
-        console.log("Endpoint:", endpoint);
+        // console.log("Endpoint:", endpoint);
 
         const response = await apiInstance.get(endpoint, {
           params: queryParams,
@@ -231,6 +232,7 @@ const Movies = () => {
                   title={movie.title}
                   overview={movie.overview}
                   img={movie.poster_path}
+                  mediaType="movie"
                 ></MovieCard>
               ))}
             </div>

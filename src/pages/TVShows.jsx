@@ -230,6 +230,7 @@ const TVShows = () => {
                   title={movie.name}
                   overview={movie.overview}
                   img={movie.poster_path}
+                  mediaType="tvshow"
                 ></MovieCard>
               ))}
             </div>
