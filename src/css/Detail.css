@@ -19,7 +19,8 @@
 .desc {
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: center;
+    gap: 40px;
     color: #fff;
     padding: 0 40px;
 }
@@ -191,6 +192,7 @@
     .movie-img {
         width: 40vw;
         height: 60vh;
+        margin-bottom: 10px;
     }
 
     .info {
@@ -200,6 +202,7 @@
 
     .desc {
         align-items: center;
+        gap: 20px;
     }
 }
 
