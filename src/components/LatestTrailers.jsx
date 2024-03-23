@@ -12,7 +12,7 @@ export const LatestTrailers = () => {
         method: 'GET',
         headers: {
           accept: 'application/json',
-          Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1N2RiYzEzNmIyZDVhYTJkNTM4MWFkMDBiNjZjMmM4NSIsInN1YiI6IjY1ZDU1YjRjZGIxNTRmMDE2NGEwNDk0OCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.zSLtWCpGKcGASs4bbXgo92iHp4cgrF68Nmxd499DCeE'
+          Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0YTFlMmNhMmI3MDFmMTFhMjhlMDNmZDA3ZGY0YTUxMiIsInN1YiI6IjY1ZGVmMWFjZDVkYmMyMDE2MzU3OTZlNCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.9c2ieIxbJ--UcJhcxvgLGM7_YtCYp6l_MD6XKktXggo'
         }
       };
       const dataTrailer = await axios.get(`https://api.themoviedb.org/3/movie/popular?language=en-US&page=1`, options);
@@ -28,7 +28,7 @@ export const LatestTrailers = () => {
 
   return (
     <div className='container latest-trailer' style={{backgroundImage: `linear-gradient(0, #021e34c7, #021e34c7), url('https://media.themoviedb.org/t/p/w1920_and_h427_multi_faces${backgroundImage}')`}}>
-      <p className='title-body title-trailer'>Latest Trailers</p>
+      <h1 className='title-body title-trailer'>Latest Trailers</h1>
       <div className='list-trailers'>
         {listLatest.map((item) => (<Trailer data={item} key={item.id} onMouseEnter={handleMouseEnter} />))}
       </div>

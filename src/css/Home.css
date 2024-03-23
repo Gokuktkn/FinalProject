@@ -63,8 +63,7 @@
 }
 
 .title-body {
-    font-size: 24px;
-    font-weight: bold;
+    font-size: calc(1.375rem + 1.5vw);
     padding-bottom: 25px;
 }
 
@@ -91,6 +90,13 @@ p {
     margin: 0;
 }
 
+.movie {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
 .name-movie {
     font-weight: bold;
 }
@@ -111,6 +117,11 @@ p {
 .latest-trailer {
     background-position: center;
     background-size: cover;
+    color: #fff;
+}
+
+.latest-trailer ::-webkit-scrollbar-thumb {
+    background: #fff;
 }
 
 .trailer {
@@ -118,12 +129,9 @@ p {
     text-align: center;
 }
 
-.title-trailer {
-    color: #fff;
-}
-
 .img-trailer {
     position: relative;
+    margin-bottom: 15px;
 }
 
 .img-trailer img {
