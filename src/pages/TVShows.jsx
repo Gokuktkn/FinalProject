@@ -205,22 +205,21 @@ const TVShows = () => {
         />
       </div>
 
-      {loading ? (
-        <div className="loading-spinner">
-          <BeatLoader color="#36d7b7" size={30} />
+      <div className="container movies-container">
+        <div className="movies-sidebar col-md-2">
+          <MovieSidebar
+            onUserScoreChange={onUserScoreChange}
+            onUserVoteChange={onUserVoteChange}
+            onMovieLengthChange={onMovieLengthChange}
+            onStartDateChange={handleStartDateChange}
+            onEndDateChange={handleEndDateChange}
+          />
         </div>
-      ) : (
-        <div className="container movies-container">
-          <div className="movies-sidebar col-md-2">
-            <MovieSidebar
-              onUserScoreChange={onUserScoreChange}
-              onUserVoteChange={onUserVoteChange}
-              onMovieLengthChange={onMovieLengthChange}
-              onStartDateChange={handleStartDateChange}
-              onEndDateChange={handleEndDateChange}
-            />
+        {loading ? (
+          <div className="loading-spinner">
+            <BeatLoader color="#36d7b7" size={30} />
           </div>
-
+        ) : (
           <div className="movies-list-pagination col-md-10">
             <div className="movies-list">
               {state.movies.map((movie) => (
@@ -242,8 +241,8 @@ const TVShows = () => {
               />
             </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
 
       <Footer />
     </div>
