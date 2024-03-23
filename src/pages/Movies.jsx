@@ -87,6 +87,7 @@ const apiInstance = axios.create({
 const Movies = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [loading, setLoading] = useState(true);
+  
   useEffect(() => {
     const fetchMovies = async () => {
       setLoading(true);
@@ -129,7 +130,7 @@ const Movies = () => {
             .split("T")[0];
         }
 
-        console.log("Endpoint:", endpoint);
+        // console.log("Endpoint:", endpoint);
 
         const response = await apiInstance.get(endpoint, {
           params: queryParams,
@@ -204,22 +205,24 @@ const Movies = () => {
         />
       </div>
 
-      {loading ? (
-        <div className="loading-spinner">
-          <BeatLoader color="#36d7b7" size={30} />
+      <div className="container movies-container">
+        <div className="movies-sidebar col-md-2">
+          <MovieSidebar
+            onUserScoreChange={onUserScoreChange}
+            onUserVoteChange={onUserVoteChange}
+            onMovieLengthChange={onMovieLengthChange}
+            onStartDateChange={handleStartDateChange}
+            onEndDateChange={handleEndDateChange}
+            userScoreRange={state.userScoreRange}
+            minUserVote={state.minUserVote}
+            movieLength={state.movieLength}
+          />
         </div>
-      ) : (
-        <div className="container movies-container">
-          <div className="movies-sidebar col-md-2">
-            <MovieSidebar
-              onUserScoreChange={onUserScoreChange}
-              onUserVoteChange={onUserVoteChange}
-              onMovieLengthChange={onMovieLengthChange}
-              onStartDateChange={handleStartDateChange}
-              onEndDateChange={handleEndDateChange}
-            />
+        {loading ? (
+          <div className="loading-spinner">
+            <BeatLoader color="#36d7b7" size={50} />
           </div>
-
+        ) : (
           <div className="movies-list-pagination col-md-10">
             <div className="movies-list">
               {state.movies.map((movie) => (
@@ -229,6 +232,7 @@ const Movies = () => {
                   title={movie.title}
                   overview={movie.overview}
                   img={movie.poster_path}
+                  mediaType="movie"
                 ></MovieCard>
               ))}
             </div>
@@ -240,8 +244,8 @@ const Movies = () => {
               />
             </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
       <Footer />
     </div>
   );

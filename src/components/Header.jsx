@@ -115,13 +115,9 @@ const Header = () => {
         </div>
         {login ? (
           <div className="header-right">
-            
             <p>Welcome, {loginData.firstName}</p>
             <div className="avatar" onClick={handleClickProfile}>
               <img src={imgageSrc} alt="user-avatar" />
-            </div>
-            <div className="search">
-              <IoSearch className="search-logo" />
             </div>
             <Menu
               id="basic-menu"
