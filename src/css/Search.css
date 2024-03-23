@@ -61,6 +61,10 @@
     background-color: #aeaeae;
 }
 
+.nav-link {
+    cursor: pointer;
+}
+
 .search-card {
     display: flex;
     height: 142px;

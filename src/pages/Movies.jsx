@@ -130,8 +130,6 @@ const Movies = () => {
             .split("T")[0];
         }
 
-        // console.log("Endpoint:", endpoint);
-
         const response = await apiInstance.get(endpoint, {
           params: queryParams,
         });

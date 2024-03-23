@@ -12,8 +12,8 @@ import { BeatLoader } from "react-spinners";
 const Search = () => {
     const [searchParams, setSearchParams] = useSearchParams();
     let [inputVal, setInputVal] = useState(searchParams.get('key'));
-    const [listMovieSearch, setListMovieSearch] = useState([]);
-    const [listTVSearch, setListTVSearch] = useState([]);
+    let [pageType, setPageType] = useState("movie");
+    const [listSearch, setListSearch] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPage, setTotalPage] = useState(0);
     const [loading, setLoading] = useState(true);
@@ -28,20 +28,17 @@ const Search = () => {
     useEffect(() => {
         const fetchData = async () => {
             setLoading(true);
-            const movieData = await axios.get(`https://api.themoviedb.org/3/search/movie?query=${searchParams.get('key')}&include_adult=false&language=en-US&page=${currentPage}`, options)
-            const tvShowData = await axios.get(`https://api.themoviedb.org/3/search/tv?query=${searchParams.get('key')}&include_adult=false&language=en-US&page=1`, options)
-            setListMovieSearch(movieData.data.results);
-            setListTVSearch(tvShowData.data.results);
-            setCurrentPage(movieData.data.page);
-            setTotalPage(movieData.data.total_pages);
+            const data = await axios.get(`https://api.themoviedb.org/3/search/${pageType}?query=${searchParams.get('key')}&include_adult=false&language=en-US&page=${currentPage}`, options)
+            setListSearch(data.data.results);
+            setCurrentPage(data.data.page);
+            setTotalPage(data.data.total_pages);
             setLoading(false);
         }
         fetchData();
-    }, [searchParams.get('key'), currentPage])
+    }, [searchParams.get('key'), currentPage, pageType])
     const handleSearch = (e) => {
         e.preventDefault();
         setSearchParams({ key: inputVal });
-        console.log(inputVal)
     }
     const handlePageChange = (page) => {
         setCurrentPage(page)
@@ -63,23 +60,16 @@ const Search = () => {
                         <div className="search-filter">
                             <p className='filter-title'>Search Filter</p>
                             <div className="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                                <a className="nav-link active" id="v-pills-movies-tab" data-toggle="pill" href="#v-pills-movies" role="tab" aria-controls="v-pills-movies" aria-selected="true">Movies</a>
-                                <a className="nav-link" id="v-pills-tv-tab" data-toggle="pill" href="#v-pills-tv" role="tab" aria-controls="v-pills-tv" aria-selected="false">TV Shows</a>
+                                <a className={pageType=="movie"?"nav-link active":"nav-link"} onClick={() => setPageType("movie")}>Movies</a>
+                                <a className={pageType=="tv"?"nav-link active":"nav-link"} onClick={() => setPageType("tv")}>TV Shows</a>
                             </div>
                         </div>
                     </div>
                     <div className="search-results tab-content" id="v-pills-tabContent">
-                        <div className="tab-pane fade show active" id="v-pills-movies" role="tabpanel" aria-labelledby="v-pills-movies-tab">
+                        <div className="tab-pane fade show active" >
                             <div className="movieList list-content">
-                                {listMovieSearch.map(item => {
-                                    return <Link to={`/movie/${item.id}`} key={item.id}><SearchCard data={item} /></Link>
-                                })}
-                            </div>
-                        </div>
-                        <div className="tab-pane fade" id="v-pills-tv" role="tabpanel" aria-labelledby="v-pills-tv-tab">
-                            <div className="tvList list-content">
-                                {listTVSearch.map(item => {
-                                    return <Link to={`/tv/${item.id}`} key={item.id}><SearchCard data={item} /></Link>
+                                {listSearch.map(item => {
+                                    return <Link to={`/${pageType}/${item.id}`} key={item.id}><SearchCard data={item} /></Link>
                                 })}
                             </div>
                         </div>

@@ -64,7 +64,7 @@ export const Detail = () => {
       try {
         const dataBody = {
           media_type: "movie",
-          media_id: id,
+          media_id: listDetail.id,
           watchlist: true,
         };
         const headers = {
@@ -76,10 +76,8 @@ export const Detail = () => {
         const url = `https://api.themoviedb.org/3/account/21038321/watchlist`;
         const response = await axios.post(url, dataBody, { headers });
         if (response) {
-          console.log(response);
           toast.success("Added to 🍿 WATCHLIST");
         } else {
-          console.error("Failed to add movie to watchlist");
           toast.error("Error adding to ❤️ FAVORITE");
         }
       } catch (error) {
@@ -99,7 +97,7 @@ export const Detail = () => {
       try {
         const dataBody = {
           media_type: "movie",
-          media_id: id,
+          media_id: listDetail.id,
           favorite: true,
         };
         const headers = {
@@ -111,10 +109,8 @@ export const Detail = () => {
         const url = `https://api.themoviedb.org/3/account/21038321/favorite`;
         const response = await axios.post(url, dataBody, { headers });
         if (response) {
-          console.log(response);
           toast.success("Added to ❤️ FAVORITE");
         } else {
-          console.error("Failed to add movie to favorite");
           toast.error("Error adding to ❤️ FAVORITE");
         }
       } catch (error) {

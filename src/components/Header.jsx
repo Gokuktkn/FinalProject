@@ -52,7 +52,7 @@ const Header = () => {
   const handleTvshowsClick = () => {
     navigate("/tvshows");
   };
-  
+
 
   return (
     <div className="container-fluid header-container-fluid">
@@ -79,39 +79,39 @@ const Header = () => {
             <IoMenu />
           </div>
           <Menu
-              id="basic-menu-hamburger"
-              anchorEl={anchorElHamburger}
-              open={openHamburger}
-              onClose={handleCloseHamburger}
-              MenuListProps={{
-                "aria-labelledby": "basic-button",
+            id="basic-menu-hamburger"
+            anchorEl={anchorElHamburger}
+            open={openHamburger}
+            onClose={handleCloseHamburger}
+            MenuListProps={{
+              "aria-labelledby": "basic-button",
+            }}
+          >
+            <MenuItem
+              onClick={() => {
+                handleCloseHamburger();
+                handleMoviesClick();
               }}
             >
-              <MenuItem
-                onClick={() => {
-                  handleCloseHamburger();
-                  handleMoviesClick();
-                }}
-              >
-                Movies
-              </MenuItem>
-              <MenuItem
-                onClick={() => {
-                  handleCloseHamburger();
-                  handleTvshowsClick();
-                }}
-              >
-                TV Shows
-              </MenuItem>
-              <MenuItem
-                onClick={() => {
-                  handleCloseHamburger();
-                  handleMyListClick();
-                }}
-              >
-                My list
-              </MenuItem>
-            </Menu>
+              Movies
+            </MenuItem>
+            <MenuItem
+              onClick={() => {
+                handleCloseHamburger();
+                handleTvshowsClick();
+              }}
+            >
+              TV Shows
+            </MenuItem>
+            <MenuItem
+              onClick={() => {
+                handleCloseHamburger();
+                handleMyListClick();
+              }}
+            >
+              My list
+            </MenuItem>
+          </Menu>
         </div>
         {login ? (
           <div className="header-right">
@@ -150,9 +150,6 @@ const Header = () => {
           <div className="header-right">
             <div className="login-header" onClick={turnToLoginPage}>
               Login
-            </div>
-            <div className="search">
-              <IoSearch className="search-logo" />
             </div>
           </div>
         )}
